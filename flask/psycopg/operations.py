@@ -4,7 +4,7 @@ from config import conn
 from datetime import datetime
 
 
-def update(request, cursor):
+def update(request, cursor, id):
     data = request.json
     data['id'] = int(id)
     # DB schema should contain an updated column, not just created
@@ -22,6 +22,11 @@ def update(request, cursor):
 
     return data
 
+def view(cursor, table):
+    cursor.execute(f"SELECT * from {table}")
+    return cursor.fetchall()
+
+
 def create(request, cursor):
     data = request.json
     data['id'] = int(str(uuid.uuid4())[-4:], 16)
@@ -37,10 +42,6 @@ def create(request, cursor):
     conn.commit()
 
     return data
-
-def view(cursor, table):
-    cursor.execute(f"SELECT * from {table}")
-    return cursor.fetchall()
 
 def delete(cursor, id):
     delete_query = """ DELETE from notes where id = %s"""
