@@ -1,0 +1,55 @@
+.banner { 
+    color: blue;
+    font-style: italic;
+    font-size: large;
+    font-weight: 600;
+}
+
+.note {
+    color: grey;
+    padding-top: 5px;
+    font-size: 15px;
+}
+
+.error {
+    color: red;
+    background: lightgrey;
+    font-size: 20px;
+    border-style: solid;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.button {
+    padding: 5px;
+    margin: 50px 25px 25px 25px;
+}
+
+.buttonContent {
+    justify-content: center;
+    display: flex;
+}
+
+.content {
+    justify-content: center;
+    display: flex;
+}
+
+div {
+    white-space: pre-line;
+}
+
+table {
+    border: 2px solid forestgreen;
+    width: 800px;
+    height: 200px;
+}
+ 
+th {
+    border-bottom: 1px solid black;
+}
+ 
+td {
+    text-align: center;
+}
