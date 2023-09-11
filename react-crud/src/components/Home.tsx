@@ -7,11 +7,13 @@ const Home = () => {
         navigate(`/playground/${page}`)
     }
   return (
-    <div>
-        <div className="banner">CRUD App</div>
-        <button onClick={() => handler('psycopg2')}>Click me to go to Psycopg2 usage</button>
-        <button onClick={() => handler('sqlalchemy')}>Click me to go to SQLAlchemy usage</button>
-    </div>
+    <>
+    <div className="banner"> CRUD App</div>
+      <div className="content">
+        <button onClick={() => handler('psycopg2')} className="button">Take me to Psycopg2 usage</button>
+        <button onClick={() => handler('sqlalchemy')} className="button">Take me to SQLAlchemy usage</button>
+      </div>
+    </>
   )  
 };
 
