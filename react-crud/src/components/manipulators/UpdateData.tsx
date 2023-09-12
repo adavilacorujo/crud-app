@@ -56,6 +56,8 @@ const UpdateData = ({library} : any) => {
                 alert(`Updated item ${id}!`)
                 // Update list of items
                 setData(data.map(c => c.id !== id ? c : updatedResponse))
+                if (updatedResponse) setId(updatedResponse.id)
+
             })
     }
 

@@ -23,7 +23,7 @@ const DeleteData = ({library} : any) => {
                     // Add value to input fields
                     setOwner(response[0].owner)
                     setContent(response[0].content)
-                    setImportant(response[0].important === 't' ? true : false)
+                    setImportant(response[0].important)
                 } 
             })
             .catch(error => {
@@ -41,6 +41,10 @@ const DeleteData = ({library} : any) => {
                 alert(`Deleted item ${id}!`)
                 // Update list of items
                 setData(updateComments)
+                setId(updateComments > 0 ? updateComments[0].id : '')
+                setOwner(updateComments > 0 ? updateComments[0].owner : '')
+                setContent(updateComments > 0 ? updateComments[0].content : '')
+                setImportant(updateComments > 0 ? updateComments[0].important : '')
             })
     }
 

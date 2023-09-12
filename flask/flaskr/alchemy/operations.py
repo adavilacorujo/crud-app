@@ -1,10 +1,11 @@
 import uuid
 
+from model import Notes, db
 from datetime import datetime
-from alchemy.utils.class_to_dict import class_to_dict
+from flaskr.alchemy.utils.class_to_dict import class_to_dict
 
 
-def update(db, Notes, request, id):
+def update(request, id):
     data = request.json
     data['id'] = int(id)
     data['created_date'] = datetime.now().strftime('%Y-%m-%d')
@@ -20,7 +21,7 @@ def update(db, Notes, request, id):
 
     return data
 
-def create(db, Notes, request):
+def create(request):
     data = request.json
     data['id'] = int(str(uuid.uuid4())[-4:], 16)
     data['created_date'] = datetime.now().strftime('%Y-%m-%d')
@@ -39,7 +40,7 @@ def create(db, Notes, request):
 
     return data
 
-def view(db, Notes):
+def view():
     notes = db.session.execute(db.Select(Notes)).scalars()
 
     # Transform each class instance into a dictionary
@@ -48,7 +49,7 @@ def view(db, Notes):
 
     return notes
     
-def delete(db, Notes, id):
+def delete(id):
     note = db.get_or_404(Notes, id)
 
     db.session.delete(note)
