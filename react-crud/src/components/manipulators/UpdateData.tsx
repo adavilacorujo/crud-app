@@ -11,14 +11,12 @@ const UpdateData = ({library} : any) => {
     const [important, setImportant] = useState(false);
 
     useEffect(() => {
-        let tempId:string;
         // Get all notes to display ids in dropdown
         comments
             .getAll(library)
             .then(response => {
                 setData(response)
                 if (response.length > 0) {
-                    tempId = response[0].id
                     setId(response[0].id)
                     // Add value to input fields
                     setOwner(response[0].owner)
@@ -29,7 +27,6 @@ const UpdateData = ({library} : any) => {
             .catch(error => {
                 console.log("So you thought", error)
             })
-
     }, [])
 
     const updateData = (event : any) => {
@@ -57,7 +54,11 @@ const UpdateData = ({library} : any) => {
                 // Update list of items
                 setData(data.map(c => c.id !== id ? c : updatedResponse))
                 if (updatedResponse) setId(updatedResponse.id)
-
+            })
+            .catch(error => {
+                if (error.message.includes('404')) {
+                    alert(`Are you sure item ${id} exists?`)
+                }
             })
     }
 

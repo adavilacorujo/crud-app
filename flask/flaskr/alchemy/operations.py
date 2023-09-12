@@ -25,6 +25,7 @@ def create(request):
     data = request.json
     data['id'] = int(str(uuid.uuid4())[-4:], 16)
     data['created_date'] = datetime.now().strftime('%Y-%m-%d')
+
     data['important'] = data['important']
 
     note = Notes(

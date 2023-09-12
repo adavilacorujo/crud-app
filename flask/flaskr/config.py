@@ -28,3 +28,15 @@ class TestingConfig(Config):
     SQLALCHEMY_DATABASE_URI = f'postgresql+psycopg2://{test_username}:{test_password}'\
             f'@{test_host}:{test_port}/{test_dbname}'
     TESTING = True
+
+    global port
+    global dbname
+    global host
+    global username
+    global password
+
+    port = test_port
+    dbname = test_dbname
+    host = test_host
+    username = test_username
+    password = test_password

@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import Option from "../Option";
 import comments from "../../services/comments";
@@ -11,14 +10,12 @@ const DeleteData = ({library} : any) => {
     const [important, setImportant] = useState(false);
 
     useEffect(() => {
-        let tempId:string;
         // Get all notes to display ids in dropdown
         comments
             .getAll(library)
             .then(response => {
                 setData(response)
                 if (response.length > 0) {
-                    tempId = response[0].id
                     setId(response[0].id)
                     // Add value to input fields
                     setOwner(response[0].owner)
@@ -36,15 +33,20 @@ const DeleteData = ({library} : any) => {
         event.preventDefault()
         comments
             .deleteComment(id, library)
-            .then(updateComments => {
+            .then(updatedComments => {
                 // Do something
                 alert(`Deleted item ${id}!`)
                 // Update list of items
-                setData(updateComments)
-                setId(updateComments > 0 ? updateComments[0].id : '')
-                setOwner(updateComments > 0 ? updateComments[0].owner : '')
-                setContent(updateComments > 0 ? updateComments[0].content : '')
-                setImportant(updateComments > 0 ? updateComments[0].important : '')
+                setData(updatedComments)
+                setId(updatedComments.length > 0 ? updatedComments[0].id : '')
+                setOwner(updatedComments.length > 0 ? updatedComments[0].owner : '')
+                setContent(updatedComments.length > 0 ? updatedComments[0].content : '')
+                setImportant(updatedComments.length > 0 ? updatedComments[0].important : '')
+            })
+            .catch(error => {
+                if (error.message.includes('404')) {
+                    alert(`Are you sure item ${id} exists?`)
+                }
             })
     }
 

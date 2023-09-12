@@ -1,6 +1,6 @@
 __author__  = 'Andres Davila'
-__date__    = '09/10/2023'
-__version__ = 1.0
+__date__    = '09/12/2023'
+__version__ = 1.4
 
 from flaskr.alchemy.operations import *
 
