@@ -8,7 +8,6 @@ import json
 import string
 import random
 
-
 sys.path.insert(0, os.path.abspath('../../flaskr'))
 sys.path.insert(0, os.path.abspath('../..'))
 

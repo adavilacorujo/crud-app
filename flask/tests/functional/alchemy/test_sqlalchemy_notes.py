@@ -4,17 +4,13 @@ __version__ = 0.1
 
 import os
 import sys
-import json
-import string
-import random
 import unittest
-
-from helpers import *
 
 sys.path.insert(0, os.path.abspath('../../../flaskr'))
 sys.path.insert(0, os.path.abspath('../../..'))
 
 from flaskr import create_app
+from functional.alchemy.helpers import *
 
 class TestRouteSQlAlchemy(unittest.TestCase):
 
@@ -83,9 +79,6 @@ class TestRouteSQlAlchemy(unittest.TestCase):
             self.assertIn('Not Found', response.data.decode('utf-8'), 
                             'Header info did not contain expected not found')
             
-
-class TestRouter(unittest.TestCase):
-    pass
 
 if __name__ == '__main__':
     unittest.main()
