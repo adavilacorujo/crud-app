@@ -1,9 +1,15 @@
+__author__  = 'Andres Davila'
+__date__    = '09/12/2023'
+__version__ = 0.1
+
+import os
 import sys
-sys.path.insert(0, '/Users/adavila/Documents/work/occam/dev/crud-app/flask')
+
+sys.path.insert(0, os.path.abspath('../..'))
 
 import unittest
 
-from app import Notes
+from model import Notes
 from datetime import datetime
 
 class TestNotes(unittest.TestCase):
