@@ -1,6 +1,4 @@
-import { Link, BrowserRouter, useMatch, useNavigate } from "react-router-dom";
-import AddData from "./manipulators/AddData";
-import DisplayData from "./manipulators/DisplayData";
+import { Link, useMatch, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import displaySelector from "../services/displaySelector";
 
@@ -11,8 +9,6 @@ import displaySelector from "../services/displaySelector";
  */
 const Playground = () => {
     const [buttonView, setButtonView] = useState('');
-
-    const navigate = useNavigate()
 
     const match = useMatch('/playground/:library')
     const library = match?.params.library

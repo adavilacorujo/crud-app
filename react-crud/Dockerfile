@@ -1,10 +1,10 @@
 # Specify a base image
 FROM node:alpine
 
-WORKDIR '/app'
+WORKDIR /app
 
 # Install some depenendencies
-COPY package.json .
+COPY package.json /app
 RUN yarn install
 COPY . .
 
