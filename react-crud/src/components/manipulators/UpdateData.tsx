@@ -1,108 +1,30 @@
-import { useEffect, useState } from "react";
 import Option from "../Option";
-import comments from "../../services/comments";
+import { useUpdate } from "../hooks/useUpdate";
 
 
 const UpdateData = ({library} : any) => {
-    const [id, setId] = useState('');
-    const [owner, setOwner] = useState('');
-    const [content, setContent] = useState('');
-    const [data, setData] = useState<any[]>([])
-    const [important, setImportant] = useState(false);
-
-    useEffect(() => {
-        // Get all notes to display ids in dropdown
-        comments
-            .getAll(library)
-            .then(response => {
-                setData(response)
-                if (response.length > 0) {
-                    setId(response[0].id)
-                    // Add value to input fields
-                    setOwner(response[0].owner)
-                    setContent(response[0].content)
-                    setImportant(response[0].important ? true : false)
-                } 
-            })
-            .catch(error => {
-                console.log("So you thought", error)
-            })
-    }, [])
-
-    const updateData = (event : any) => {
-        event.preventDefault()
-
-        if (owner.length < 1) {
-            alert('No name has been provided!')
-            return null
-        }
-        if (content.length < 1) {
-            alert('Are you sure you want to send an empty note?')
-            return null
-        }
-        const newComment = {
-            owner: owner,
-            content: content,
-            important: important
-        }
-
-        comments
-            .updateComment(id, newComment, library)
-            .then(updatedResponse => {
-                // Do something
-                alert(`Updated item ${id}!`)
-                // Update list of items
-                setData(data.map(c => c.id !== id ? c : updatedResponse))
-                if (updatedResponse) setId(updatedResponse.id)
-            })
-            .catch(error => {
-                if (error.message.includes('404')) {
-                    alert(`Are you sure item ${id} exists?`)
-                }
-            })
-    }
-
-    const handleOwner = (event : any) => {
-        setOwner(event.target.value)
-    }
-    const handleContent = (event : any) => {
-        setContent(event.target.value)
-    }
-    const handleImportant = (event : any) => {
-        setImportant(!important)
-    }
-    const handleIdSelect = (event : any) => {
-        setId(event.target.value)
-        
-        const selected = data.filter((element : any) => Number(element.id) === Number(event.target.value)).map((filteredElement) => filteredElement)
-        
-        // Add value to input fields
-        setOwner(selected[0].owner)
-        setContent(selected[0].content)
-        setImportant(selected[0].important ? true : false)
-    }
-    
+    const update = useUpdate(library)    
     return (
         <>
-            <select onChange={handleIdSelect} value={id}>x
-                {data.length > 0 ? data.map(element => {
+            <select onChange={update.handleIdSelect} value={update.id}>x
+                {update.data.length > 0 ? update.data.map((element: any) => {
                     return <Option key={element.id} data={element} />
                 })
                 :
                 ''
                 }
             </select>
-            <form onSubmit={updateData}>
+            <form onSubmit={update.updateData}>
                 <p>Name</p>
                 <input
-                    value={owner}
-                    onChange={handleOwner}
+                    value={update.owner}
+                    onChange={update.handleOwner}
                 />
                 <br />
                 <p>Content:</p>
                 <input
-                    value={content}
-                    onChange={handleContent}
+                    value={update.content}
+                    onChange={update.handleContent}
                 />
                 <br />
                 <br />
@@ -110,8 +32,8 @@ const UpdateData = ({library} : any) => {
                 <input
                     type="radio"
                     value={"Important"}
-                    checked={important === true}
-                    onClick={handleImportant}
+                    checked={update.important === true}
+                    onClick={update.handleImportant}
                     onChange={() => {}}
                 />
                 <button type="submit">Update</button>

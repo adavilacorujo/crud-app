@@ -1,6 +1,7 @@
 import { Link, useMatch, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import displaySelector from "../services/displaySelector";
+import { usePlayground } from "./hooks/usePlayground";
 
 /**
  * Main program to display data from servers
@@ -8,14 +9,11 @@ import displaySelector from "../services/displaySelector";
  * @returns UI components for user interaction
  */
 const Playground = () => {
-    const [buttonView, setButtonView] = useState('');
+    const [buttonView, buttonHandler] = usePlayground('')
 
     const match = useMatch('/playground/:library')
     const library = match?.params.library
     
-    const buttonHandler = (option:string) => {
-        setButtonView(option)
-    }
     return (
         <>
         <div className="banner">
