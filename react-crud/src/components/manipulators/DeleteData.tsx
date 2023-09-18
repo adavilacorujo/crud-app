@@ -64,9 +64,12 @@ const DeleteData = ({library} : any) => {
     return (
         <>
             <select onChange={handleIdSelect} value={id}>
-                {data.map(element => {
+                { data.length > 0 ?
+                data.map(element => {
                     return <Option key={element.id} data={element} />
-                })}
+                }) 
+                : ''
+                }
             </select>
             <form onSubmit={deleteData}>
                 <p>Name</p>

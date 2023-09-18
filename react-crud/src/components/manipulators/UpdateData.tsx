@@ -84,10 +84,13 @@ const UpdateData = ({library} : any) => {
     
     return (
         <>
-            <select onChange={handleIdSelect} value={id}>
-                {data.map(element => {
+            <select onChange={handleIdSelect} value={id}>x
+                {data.length > 0 ? data.map(element => {
                     return <Option key={element.id} data={element} />
-                })}
+                })
+                :
+                ''
+                }
             </select>
             <form onSubmit={updateData}>
                 <p>Name</p>

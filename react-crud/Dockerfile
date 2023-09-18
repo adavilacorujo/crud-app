@@ -1,5 +1,5 @@
 # Specify a base image
-FROM node:alpine
+FROM node:alpine as builder
 
 WORKDIR /app
 
@@ -7,9 +7,14 @@ WORKDIR /app
 COPY package.json /app
 RUN yarn install
 COPY . .
+RUN yarn build
 
-# Uses port which is used by the actual application
+# FROM nginx:latest
+# WORKDIR /usr/share/nginx/html
+# RUN rm -rf ./*
+# COPY --from=builder /app/build .
+
 EXPOSE 3000
 
-# Default command
-CMD ["yarn", "run", "start"]
+ENTRYPOINT [ "yarn", "start" ]
+# ENTRYPOINT [ "nginx", "-g", "daemon off;" ]

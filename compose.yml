@@ -1,39 +1,52 @@
 name: react-flask-postgres
+
 services:
+
   frontend:
-    build:
-      context: react-crud
-      target: development
+    image: frontend
+    build: ./react-crud
+    environment:
+      - PROXY_PORT=6969
     networks:
       - client-side
     ports:
       - 3000:3000
-    volumes:
-      - ./frontend/src:/code/src:ro
+    depends_on:
+      - backend
+      - db
+      - setup
+
+  proxy:
+    image: proxy
+    build: ./proxy-server
+    environment:
+      - TARGET_HOST=backend
+      - TARGET_PORT=8000
+    networks: 
+      - client-side
+      - server-side
+    ports:
+      - 6969:6969
+    
 
   backend:
-    build:
-      context: flask
-      target: development
+    image: backend
+    build: ./flask_app
     environment:
-      - ADDRESS=0.0.0.0:8000
-      - RUST_LOG=debug
       - DBNAME=postgres
       - DBHOST=db
       - DBUSER=postgres
       - DBPASSWORD=mysecretpassword
-      - DBPORT=5421
+      - DBPORT=5432
     networks:
-      - client-side
+      # - client-side
       - server-side
-    volumes:
-      - ./backend/src:/code/src
-      - backend-cache:/code/target
     depends_on:
       - db
+      - setup
 
   db:
-    image: postgres:12-alpine
+    image: postgres:latest
     restart: always
     environment:
       - POSTGRES_PASSWORD=mysecretpassword
@@ -43,8 +56,22 @@ services:
       - server-side
     ports:
       - 5432:5432
-    volumes:
-      - db-data:/var/lib/postgresql/data
+    # volumes:
+      # - db-data:/var/lib/postgresql/data
+
+  # Data Adder
+  setup:
+    image: setup
+    build: setup
+    environment:
+      - DBPORT=5432
+      - DBNAME=postgres
+      - DBHOST=db
+      - DBUSER=postgres
+      - DBPASSWORD=mysecretpassword
+      - WAIT_HOSTS=db:5432
+    networks:
+      - server-side
 
 networks:
   client-side: {}

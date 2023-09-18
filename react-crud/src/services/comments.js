@@ -1,9 +1,11 @@
 import axios from 'axios'
-const baseUrl = '/api'
+// const baseUrl = 'http://backend:8000'
+// const baseUrl = '/api'
+const baseUrl = "http://0.0.0.0:6969/api"
 
 const getAll = library => {
-    return fetch(`${baseUrl}/${library}/getData`).then(response => response.json())
-    // return axios.get(`${baseUrl}/${library}/getData`).then(response => response.data)
+    // return fetch(`${baseUrl}/${library}/getData`).then(response => response.data)
+    return axios.get(`${baseUrl}/${library}/getData`).then(response => response.data)
 }
 
 const createComment = (library, newObject) => {

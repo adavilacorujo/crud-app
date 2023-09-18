@@ -2,11 +2,15 @@ import os
 
 from model import db
 from flask import request, Flask
+from flask_cors import CORS
 from request_handler.handler import SQLHandler
 
 def create_app(test_config=None):
     # create and configure the app
     app = Flask(__name__, instance_relative_config=True)
+
+    CORS(app, resources={r'/*': {'origins': '*'}})
+      
     app.config.from_mapping(
         SECRET_KEY='dev',
         DATABASE=os.path.join(app.instance_path, 'sqlite'),

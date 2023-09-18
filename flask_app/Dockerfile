@@ -1,9 +1,9 @@
-FROM python:3.11.4
+FROM python:3.11-slim-bookworm
 
 ENV DBPORT="5432"
 ENV DBNAME="notes"
 ENV DBHOST="172.17.0.2"
-ENV DBUSERNAME="andres"
+ENV DBUSER="andres"
 ENV DBPASSWORD="password"
 
 WORKDIR /app

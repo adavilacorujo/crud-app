@@ -29,11 +29,16 @@ const DisplayData = ({library} : any) => {
             </tr>
             </thead>
             <tbody>
-            {content.map(element => 
+            {
+                content.length > 0 ?
+            content.map(element => 
                 <tr key={element.id}>
                     <Data key={dataPrefix + element.id} data={element} />
                 </tr>
-            )}
+            )
+            :
+            ''
+            }
             </tbody>
         </ table>
     )
