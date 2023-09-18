@@ -5,7 +5,7 @@ import DeleteData from "../components/manipulators/DeleteData";
 
 
 
-const displaySelector = (display, library) => {
+const displaySelector = ({display, library} : any) => {
     switch(display) {
       case 'view':
         return <DisplayData library={library} />

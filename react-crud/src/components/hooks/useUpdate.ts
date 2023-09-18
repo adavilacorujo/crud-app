@@ -45,7 +45,7 @@ export const useUpdate = (library : any) => {
         }
 
         comments
-            .updateComment(id, newComment, library)
+            .updateComment({id, newComment, library})
             .then(updatedResponse => {
                 // Do something
                 alert(`Updated item ${id}!`)
