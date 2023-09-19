@@ -1,5 +1,4 @@
 import { Link, useMatch, useNavigate } from "react-router-dom";
-import { useState } from "react";
 import displaySelector from "../services/displaySelector";
 import { usePlayground } from "./hooks/usePlayground";
 
@@ -32,7 +31,7 @@ const Playground = () => {
         </ div>
 
         <div className="content">
-            {displaySelector(buttonView, library)}
+            {displaySelector({buttonView, library})}
         </div>
         </>
     )

@@ -25,7 +25,7 @@ export const useForm = (library : any) => {
         }
 
         comments
-            .createComment(library, newComment)
+            .createComment({library, newComment})
             .then(data => {
                 // Add data to list of content
                 alert(`Data added with id ${data.id}`)

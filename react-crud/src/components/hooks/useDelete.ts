@@ -32,7 +32,7 @@ export const useDelete = (library : any) => {
     const deleteData = (event: any) => {
         event.preventDefault()
         comments
-            .deleteComment(id, library)
+            .deleteComment({id, library})
             .then(updatedComments => {
                 // Do something
                 alert(`Deleted item ${id}!`)
